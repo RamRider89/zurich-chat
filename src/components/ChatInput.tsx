@@ -2,7 +2,7 @@
  * Este componente manejará la entrada del usuario.
  */
 import React, { useState } from 'react';
-import styles from './ChatInput.module.scss'; // Importamos los estilos
+import styles from './ChatInput.module.scss'; // estilos
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
