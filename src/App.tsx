@@ -1,13 +1,15 @@
-import React from 'react';
+import { Fragment } from 'react';
 // Routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { store } from './store';
 // componentes de página
-import HomePage from './pages/HomePage'; // Será tu componente de chat
+import HomePage from './pages/HomePage'; // componente de chat
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
+// auth
+import PrivateRoute from './components/PrivateRoute';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +19,7 @@ function App() {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
