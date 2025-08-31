@@ -2,6 +2,7 @@
  * Este componente manejará la entrada del usuario.
  */
 import React, { useState } from 'react';
+import styles from './ChatInput.module.scss'; // Importamos los estilos
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -19,14 +20,17 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles['chat-input-container']}>
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Escribe tu mensaje..."
+        className={`${styles['input-field']} form-control`} // Clases de SASS y Bootstrap
       />
-      <button type="submit">Enviar</button>
+      <button type="submit" className={`${styles['send-button']} btn btn-primary`}>
+        Enviar
+      </button>
     </form>
   );
 };
