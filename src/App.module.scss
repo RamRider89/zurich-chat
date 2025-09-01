@@ -1,17 +1,49 @@
-@import '../node_modules/bootstrap/scss/bootstrap';
-
 .chat-container {
+  border-top: 1px solid #dee2e6;
+  z-index: 1;
+  height: -webkit-fill-available;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  position: absolute;
+  top: 40px;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.message-history{
+  max-width: 20%;
+  padding: 10px;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+  text-align: left !important;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding-bottom: 7rem; // Para dejar espacio para el input
-  background-color: #f2f2f2;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .message-list {
   flex-grow: 1;
   overflow-y: auto;
   padding: 1rem;
+  max-width: 80%;
+}
+
+.historial{
+  margin-top: 20px;
+  width: 100%;
+}
+
+.config{
+  width: 100%;
 }
 
 .message {
@@ -22,7 +54,7 @@
   line-height: 1.5;
   
   &.user {
-    background-color: #0d6efd; // Color azul de Bootstrap
+    background-color: var(--bs-primary); // Color azul de Bootstrap
     color: white;
     align-self: flex-end;
     margin-left: auto;

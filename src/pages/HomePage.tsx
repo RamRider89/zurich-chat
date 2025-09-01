@@ -2,11 +2,13 @@
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
-import { Link } from 'react-router-dom';
 import { addMessage } from '../features/chatSlice';
-import ChatInput from '../components/ChatInput';
+import ChatInput from '../components/chat/ChatInput';
 import { useTriviaQuestion } from '../hooks/useTrivia';
 import styles from '../App.module.scss'; // mismo estilo
+
+import SpecialNav from '../components/nav/Nav';
+import SpecialButton from '../components/button/Button';
 
 function HomePage() {
   const messages = useSelector((state: RootState) => state.chat.messages);
@@ -32,18 +34,57 @@ function HomePage() {
 
   return (
     <Fragment>
-        <nav>
-            <Link to="/about">Acerca de</Link> | <Link to="/login">Login</Link>
-        </nav>
+        
+        <SpecialNav />
         <div className={styles['chat-container']}>
-        <div className={styles['message-list']}>
-            {messages.map((msg) => (
-            <div key={msg.id} className={`${styles.message} ${msg.sender === 'user' ? styles.user : styles.bot}`}>
-                {msg.text}
-            </div>
-            ))}
-        </div>
-        <ChatInput onSendMessage={handleSendMessage} />
+
+          <div className={styles['message-history']}>
+
+              <div className={styles['historial']}>
+                <SpecialButton 
+                  title='Nuevo chat'
+                  type='btn-lg'
+                  icon='bi bi-pencil-square'
+                />
+
+                <SpecialButton 
+                  title='Recientes'
+                  type='btn-lg'
+                  icon='bi bi-clock-history'
+                />
+
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">Cras justo odio</li>
+                  <li className="list-group-item">Dapibus ac facilisis in</li>
+                  <li className="list-group-item">Morbi leo risus</li>
+                  <li className="list-group-item">Porta ac consectetur ac</li>
+                  <li className="list-group-item">Vestibulum at eros</li>
+                </ul>
+              </div>
+
+              <div className={styles['config']}>
+                <SpecialButton 
+                  title='Configuración'
+                  type='outline-secondary'
+                  icon='bi bi-gear'
+                />
+              </div>
+          </div>
+
+          <div className={styles['message-list']}>
+              {messages.map((msg) => (
+              <div key={msg.id} className={`${styles.message} ${msg.sender === 'user' ? styles.user : styles.bot}`}>
+                  {msg.text}
+              </div>
+              ))}
+          </div>
+
+
+          <ChatInput 
+          
+          onSendMessage={handleSendMessage} 
+          
+          />
         </div>
     </Fragment>
   );

@@ -1,4 +1,4 @@
-@import '../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 
 .chat-input-container {
   display: flex;
@@ -6,11 +6,24 @@
   background-color: #f8f9fa; // Un color de fondo claro
   border-top: 1px solid #dee2e6;
   position: fixed;
+  width: 80%;
   bottom: 0;
-  width: 100%;
+  right: 0;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }
 
+.chat-input {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+
 .input-field {
+  height: 60px;
   flex-grow: 1;
   border-radius: 20px;
   padding: 0.75rem 1rem;
@@ -19,6 +32,18 @@
     box-shadow: none; // Desactiva el box-shadow por defecto de Bootstrap
     border-color: #0d6efd; // Cambia el color del borde al hacer focus
   }
+}
+
+.acciones {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.buttons{
+  width: auto;
 }
 
 .send-button {

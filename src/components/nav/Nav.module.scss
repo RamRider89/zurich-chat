@@ -1,0 +1,64 @@
+/* src/components/SpecialCard.module.scss */
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.special-nav {
+  @extend .nav;
+}
+
+.navbar-expand-md {
+  @extend .navbar-expand-md;
+}
+
+.navbar-light {
+  @extend .navbar-light ;
+}
+
+.bg-light {
+  @extend .bg-light;
+    --bs-bg-opacity: 1;
+    background-color: #eeeeee !important;
+}
+
+.fixed-top {
+  @extend .fixed-top;
+}
+
+.pills {
+  @extend .nav-pills;
+}
+
+.nav-link {
+  @extend .nav-link;
+}
+
+.nav-item {
+  @extend .nav-item;
+}
+
+.active {
+  @extend .active;
+}
+
+.disabled {
+  @extend .disabled;
+}
+
+.dropdown {
+  @extend .dropdown;
+}
+
+.dropdown-toggle {
+  @extend .dropdown-toggle;
+}
+
+.dropdown-menu {
+  @extend .dropdown-menu;
+}
+
+.dropdown-item {
+  @extend .dropdown-item;
+}
+
+.dropdown-divider {
+  @extend .dropdown-divider;
+}

@@ -1,0 +1,8 @@
+/* src/components/SpecialCard.module.scss */
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+.special-card {
+  @extend .card;
+  background-color: #f0f0f0;
+  border-left: 5px solid #0d6efd;
+}

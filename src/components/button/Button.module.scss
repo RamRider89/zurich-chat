@@ -1,0 +1,54 @@
+/* src/components/SpecialCard.module.scss */
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.special-btn {
+  @extend .btn;
+}
+
+.primary {
+  @extend .btn-primary;
+}
+
+.secondary {
+  @extend .btn-secondary;
+}
+
+.outline-secondary {
+  @extend .btn-outline-secondary;
+  text-align: left !important;
+  width: 100% !important;
+}
+
+.success {
+  @extend .btn-success;
+}
+
+.danger {
+  @extend .btn-danger;
+}
+
+.warning {
+  @extend .btn-warning;
+}
+
+.info {
+  @extend .btn-info;
+}
+
+.light {
+  @extend .btn-light;
+  text-align: left !important;
+}
+
+.btn-lg {
+  @extend .btn-lg;
+  text-align: left !important;
+  width: 100%;
+}
+
+.btn-link {
+  @extend .btn-link;
+  text-align: left !important;
+}
+
+
