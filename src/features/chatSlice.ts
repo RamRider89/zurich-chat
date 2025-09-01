@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface Message {
   id: string;
@@ -10,8 +11,10 @@ interface ChatState {
   messages: Message[];
 }
 
+// cargar la conversación del localStorage
+const persistedState = localStorage.getItem('chatConversation');
 const initialState: ChatState = {
-  messages: [],
+  messages: persistedState ? JSON.parse(persistedState) : [],
 };
 
 const chatSlice = createSlice({

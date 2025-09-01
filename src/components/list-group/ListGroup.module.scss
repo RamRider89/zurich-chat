@@ -1,0 +1,7 @@
+/* src/components/SpecialCard.module.scss */
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+.special-list-group {
+  @extend .list-group;
+  background-color: #f0f0f0;
+}

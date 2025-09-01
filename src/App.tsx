@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 // Routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';

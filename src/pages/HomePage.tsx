@@ -1,5 +1,5 @@
 // toda la lógica y los componentes de chat
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
 import { addMessage } from '../features/chatSlice';
@@ -9,11 +9,18 @@ import styles from '../App.module.scss'; // mismo estilo
 
 import SpecialNav from '../components/nav/Nav';
 import SpecialButton from '../components/button/Button';
+import SpecialListGroup from '../components/list-group/ListGroup';
 
 function HomePage() {
   const messages = useSelector((state: RootState) => state.chat.messages);
   const dispatch = useDispatch<AppDispatch>();
   const { data, isLoading, isError, refetch } = useTriviaQuestion();
+
+
+  // guardar la conversación cada vez que se actualice
+  useEffect(() => {
+    localStorage.setItem('chatConversation', JSON.stringify(messages));
+  }, [messages]);
 
   const handleSendMessage = (text: string) => {
     dispatch(addMessage({ id: Date.now().toString(), text, sender: 'user' }));
@@ -53,13 +60,9 @@ function HomePage() {
                   icon='bi bi-clock-history'
                 />
 
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">Cras justo odio</li>
-                  <li className="list-group-item">Dapibus ac facilisis in</li>
-                  <li className="list-group-item">Morbi leo risus</li>
-                  <li className="list-group-item">Porta ac consectetur ac</li>
-                  <li className="list-group-item">Vestibulum at eros</li>
-                </ul>
+                <SpecialListGroup />
+
+                
               </div>
 
               <div className={styles['config']}>
