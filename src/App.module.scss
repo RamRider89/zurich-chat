@@ -40,6 +40,7 @@
 .historial{
   margin-top: 20px;
   width: 100%;
+  text-align: left;
 }
 
 .config{
@@ -65,4 +66,8 @@
     color: #212529;
     align-self: flex-start;
   }
+}
+
+.text-left {
+  text-align: left !important;
 }

@@ -8,24 +8,50 @@ interface Message {
 }
 
 interface ChatState {
-  messages: Message[];
+  conversations: { [key: string]: Message[] }; // Un objeto que mapea IDs a arrays de mensajes
+  currentConversationId: string | null;
 }
 
-// cargar la conversación del localStorage
-const persistedState = localStorage.getItem('chatConversation');
-const initialState: ChatState = {
-  messages: persistedState ? JSON.parse(persistedState) : [],
+const getInitialState = (): ChatState => {
+  const persistedState = localStorage.getItem('chatState');
+  if (persistedState) {
+    const state = JSON.parse(persistedState);
+    // Asegura que siempre haya una conversación activa al cargar
+    if (!state.currentConversationId && Object.keys(state.conversations).length > 0) {
+      state.currentConversationId = Object.keys(state.conversations)[0];
+    }
+    return state;
+  }
+  
+  // Estado inicial si no hay datos en localStorage
+  const newConversationId = Date.now().toString();
+  return {
+    conversations: { [newConversationId]: [] },
+    currentConversationId: newConversationId,
+  };
 };
 
 const chatSlice = createSlice({
   name: 'chat',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     addMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.push(action.payload);
+      if (state.currentConversationId) {
+        state.conversations[state.currentConversationId].push(action.payload);
+      }
+    },
+    startNewConversation: (state) => {
+      const newConversationId = Date.now().toString();
+      state.conversations[newConversationId] = [];
+      state.currentConversationId = newConversationId;
+    },
+    switchConversation: (state, action: PayloadAction<string>) => {
+      if (state.conversations[action.payload]) {
+        state.currentConversationId = action.payload;
+      }
     },
   },
 });
 
-export const { addMessage } = chatSlice.actions;
+export const { addMessage, startNewConversation, switchConversation } = chatSlice.actions;
 export default chatSlice.reducer;

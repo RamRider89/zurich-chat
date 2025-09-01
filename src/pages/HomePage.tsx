@@ -2,25 +2,24 @@
 import { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
-import { addMessage } from '../features/chatSlice';
+import { addMessage, startNewConversation, switchConversation } from '../features/chatSlice';
 import ChatInput from '../components/chat/ChatInput';
 import { useTriviaQuestion } from '../hooks/useTrivia';
 import styles from '../App.module.scss'; // mismo estilo
 
 import SpecialNav from '../components/nav/Nav';
 import SpecialButton from '../components/button/Button';
-import SpecialListGroup from '../components/list-group/ListGroup';
 
 function HomePage() {
-  const messages = useSelector((state: RootState) => state.chat.messages);
+  const { conversations, currentConversationId } = useSelector((state: RootState) => state.chat);
+  const messages = currentConversationId ? conversations[currentConversationId] : [];
   const dispatch = useDispatch<AppDispatch>();
   const { data, isLoading, isError, refetch } = useTriviaQuestion();
 
-
-  // guardar la conversación cada vez que se actualice
+  // Guarda todo el estado del chat en localStorage
   useEffect(() => {
-    localStorage.setItem('chatConversation', JSON.stringify(messages));
-  }, [messages]);
+    localStorage.setItem('chatState', JSON.stringify({ conversations, currentConversationId }));
+  }, [conversations, currentConversationId]);
 
   const handleSendMessage = (text: string) => {
     dispatch(addMessage({ id: Date.now().toString(), text, sender: 'user' }));
@@ -48,11 +47,11 @@ function HomePage() {
           <div className={styles['message-history']}>
 
               <div className={styles['historial']}>
-                <SpecialButton 
-                  title='Nuevo chat'
-                  type='btn-lg'
-                  icon='bi bi-pencil-square'
-                />
+
+                <button type="button" className={`btn btn-lg w-100 mb-3 ${styles['text-left']}`} 
+                onClick={() => dispatch(startNewConversation())}>
+                  <i className='bi bi-pencil-square'></i> Nuevo chat
+                </button>
 
                 <SpecialButton 
                   title='Recientes'
@@ -60,8 +59,21 @@ function HomePage() {
                   icon='bi bi-clock-history'
                 />
 
-                <SpecialListGroup />
+                <ul id="lista-mensajes" className="list-group list-group-flush">
 
+                  {Object.keys(conversations).map((id) => (
+                    <li key={id} className="list-group-item list-group-item-action list-group-item-light">
+                      <button
+                        //variant={currentConversationId === id ? 'primary' : 'light'}
+                        onClick={() => dispatch(switchConversation(id))}
+                        className="btn btn-sm w-100 text-start"
+                      >
+                        Chat #{id.slice(-4)}
+                      </button>
+                    </li>
+                  ))}
+
+                </ul>
                 
               </div>
 
@@ -82,12 +94,8 @@ function HomePage() {
               ))}
           </div>
 
+          <ChatInput onSendMessage={handleSendMessage} />
 
-          <ChatInput 
-          
-          onSendMessage={handleSendMessage} 
-          
-          />
         </div>
     </Fragment>
   );
